@@ -61,8 +61,8 @@ static tDataNode menu[]=
 int InitMenuData(tLinkTable **ppLinkTable)
 {
     *ppLinkTable=CreateLinkTable();
-    (*ppLinkTable)->Head=(tLinkNode*)&menu[0];
-    (*ppLinkTable)->Tail=(tLinkNode*)&menu[5];
+    (*ppLinkTable)->pHead=(tLinkNode*)&menu[0];
+    (*ppLinkTable)->pTail=(tLinkNode*)&menu[5];
     (*ppLinkTable)->SumOfNode=7;
 }
 tLinkTable *head=NULL;
@@ -103,27 +103,27 @@ int version()
 
 int add()
 {
-    int a, b sum;
+    int a, b, sum;
     printf("Please enter 2 intergers:\n");
-    scanf("%d %d", &a, %b);
+    scanf("%d %d", &a, &b);
     sum = a + b;
     printf("%d + %d is %d", a, b, sum);
     return 0;
 }
 int sub()
 {
-    int a, b sum;
+    int a, b, sum;
     printf("Please enter 2 intergers:\n");
-    scanf("%d %d", &a, %b);
+    scanf("%d %d", &a, &b);
     sum = a - b;
     printf("%d - %d is %d", a, b, sum);
     return 0;
 }
 int mul()
 {
-    int a, b sum;
+    int a, b, sum;
     printf("Please enter 2 intergers:\n");
-    scanf("%d %d", &a, %b);
+    scanf("%d %d", &a, &b);
     sum = a * b;
     printf("%d * %d is %d", a, b, sum);
     return 0;
