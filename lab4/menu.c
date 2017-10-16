@@ -46,21 +46,41 @@ int ShowAllCmd(tLinkTable *head)
     }
     return 0;
 }
-static tDataNode menu[]=
-{
-    {(tLinkNode*)&menu[1], "version", "This is version 3.0", NULL},
-    {(tLinkNode*)&menu[2], "help", "This is help cmd", help},
-    {(tLinkNode*)&menu[3], "add", "This is add cmd", add},
-    {(tLinkNode*)&menu[4], "sub", "This is sub cmd", sub},
-    {(tLinkNode*)&menu[5], "sub", "This is mul cmd", mul},
-    {(tLinkNode*)NULL, "quit", "This is quit cmd", quit}
-};
+
 int InitMenuData(tLinkTable **ppLinkTable)
 {
     *ppLinkTable = CreateLinkTable();
-    (*ppLinkTable)->pHead=(tLinkNode*)&menu[0];
-    (*ppLinkTable)->pTail=(tLinkNode*)&menu[5];
-    (*ppLinkTable)->SumOfNode=7;
+    tDataNode *pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "help";
+    pNode->desc = "all functions:";
+    pNode->handler = help();
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "version";
+    pNode->desc = "This is version 3.0";
+    pNode->handler = NULL;
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "add";
+    pNode->desc = "This is add cmd";
+    pNode->handler = add();
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "sub";
+    pNode->desc = "This is sub cmd";
+    pNode->handler = sub();
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "mul";
+    pNode->desc = "This is mul cmd";
+    pNode->handler = mul();
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    pNode = (tDataNode*)malloc(sizeof(tDataNode));
+    pNode->cmd = "quit";
+    pNode->desc = "Quit from menu!";
+    pNode->handler = quit();
+    AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
+    return 0;
 }
 tLinkTable *head = NULL;
 
@@ -89,6 +109,7 @@ int main()
 int help()
 {
     ShowAllCmd(head);
+    return 0;
 }
 int add()
 {
