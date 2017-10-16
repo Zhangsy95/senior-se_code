@@ -8,7 +8,6 @@
 #define DESC_LEN 1024
 #define CMD_NUM 10
 
-int ShowAllCmd(tLinkTable *head)
 int help();
 int add();
 int sub();
@@ -38,7 +37,7 @@ tDataNode * FindCmd(tLinkTable *head, char *cmd)
 }
 int ShowAllCmd(tLinkTable *head)
 {
-    tDataNode *pNode = (tDataNode*)GetLinkHead(head);
+    tDataNode *pNode = (tDataNode*)GetLinkTableHead(head);
     while(pNode !=NULL)
     {
         printf("%s--%s\n", pNode->cmd, pNode->desc);
@@ -53,7 +52,7 @@ int InitMenuData(tLinkTable **ppLinkTable)
     tDataNode *pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "help";
     pNode->desc = "all functions:";
-    pNode->handler = help();
+    pNode->handler = help;
     AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "version";
@@ -63,22 +62,22 @@ int InitMenuData(tLinkTable **ppLinkTable)
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "add";
     pNode->desc = "This is add cmd";
-    pNode->handler = add();
+    pNode->handler = add;
     AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "sub";
     pNode->desc = "This is sub cmd";
-    pNode->handler = sub();
+    pNode->handler = sub;
     AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "mul";
     pNode->desc = "This is mul cmd";
-    pNode->handler = mul();
+    pNode->handler = mul;
     AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "quit";
     pNode->desc = "Quit from menu!";
-    pNode->handler = quit();
+    pNode->handler = quit;
     AddLinkNode(*ppLinkTable, (tLinkNode*)pNode);
     return 0;
 }
