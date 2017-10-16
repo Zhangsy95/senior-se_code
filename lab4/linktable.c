@@ -4,12 +4,11 @@
 tLinkTable * CreateLinkTable()
 {
     tLinkTable *pLinkTable = (tLinkTable*)malloc(sizeof(tLinkTable));
-    if(pLinkLinkTable == NULL)
+    if(pLinkTable == NULL)
         return NULL;
     pLinkTable->pHead = NULL;
     pLinkTable->pTail = NULL;
     pLinkTable->SumOfNode = 0;
-
     return pLinkTable;
 }
 
@@ -31,56 +30,96 @@ int DeleteLinkTable(tLinkTable *pLinkTable)
     return  SUCESS;       
 }
 
-int AddLinkTableNode(tLinkTable *pLinkTable, tLinkTableNode *pNode)
+int AddLinkNode(tLinkTable *pLinkTable, tLinkNode *pNode)
 {
-    if(pLinkTable == NULL)
+    if(pLinkTable == NULL||pNode == NULL)
     {
-        printf("The table is empty!\n");
-        exit(0);
+        return -1;
+       
     }
-    
-    else if(pNode == NULL)
-    {
-        printf("The node is empty!\n");
-        return 0;
-    }
+    pNode->pNext = NULL;
 
-    else if(pLinkTable->pHead == NULL)
-    {
-        pLinkTable->pHead = pNode;
-        pLinkTable->pTail = pNode;
-        pLinkTable->SumOfNode = 1;
-    }
+    if(pLinkTable->pHead == NULL)
+	pLinkTable->pHead=pNode;
+    
     else
     {
         pLinkTable->pTail->pNext = pNode;
-	pLinkTable->pTail = pNode;
-        pLinkTable->SumOfNode++;
+	pLinkTable->pTail = pLinkTable->pTail->pNext;
     }
+    pLinkTable->SumOfNode++;
     return 0;
 }
 
-tLinkTableNode * GetLinkTableHead(tLinkTable *pLinkTable)
+int DelLinkNode(tLinkTable * pLinkTable, tLinkNode * pNode)
 {
-    if(pLinkTable == NULL)
+    if(pLinkTable == NULL || pNode == NULL)
+        return -1;
+    tLinkNode * p=pLinkTable->pHead;
+    if(pLinkTable->pHead == pNode)
     {
-        Printf("The table is empty!\n");
-        exit(0);
+        pLinkTable->pHead=pLinkTable->pHead->pNext;
+	free(p);
+	pLinkTable->SumOfNode--;
     }
-    return pLinkTable->Head;
+    if(pLinkTable->SumOfNode == 0)
+    {
+	pLinkTable->pTail=NULL;
+    }
+    return 0;
+    while(p != NULL)
+    {
+	if(p->pNext == pNode)
+	{
+	    tLinkNode * q=p->pNext;
+	    p->pNext=p->pNext->pNext;
+	    free(q);
+	    pLinkTable->SumOfNode--;
+	    if(pLinkTable->SumOfNode == 0)
+		{
+		    pLinkTable->pTail=NULL;
+		}
+	    return 0;
+	}
+	p=p->pNext;
+    }
+    return -1;
 }
 
-tLinkTableNode * GetNextLinkTableNode(tLinkTable *pLinkTable, tLinkTableNode *pNode)
+tLinkNode * GetLinkTableHead(tLinkTable *pLinkTable)
 {
-    if(pLinkTable == NULL)
+    if(pLinkTable == NULL || pLinkTable->pHead == NULL)
     {
-        printf("The table is empty!\n");
-        exit(0);
+        return NULL;
+    }
+    return pLinkTable->pHead;
+}
+
+tLinkNode * GetLinkTableTail(tLinkTable *pLinkTable)
+{
+    if(pLinkTable == NULL || pLinkTable->pTail == NULL)
+    {
+        return NULL;
+    }
+    return pLinkTable->pTail;
+}
+
+
+tLinkNode * GetNextLinkNode(tLinkTable *pLinkTable, tLinkNode *pNode)
+{
+    if(pLinkTable == NULL || pNode == NULL)
+    {
+        return NULL;
     }
     
-    if(pNode == NULL)
+    tLinkNode * p=pLinkTable->pHead;
+    while(p !=NULL)
     {
-        printf("The node is empty!\n");
+	if(p == pNode)
+	{
+	    return p->pNext;
+	}
+	p=p->pNext;
     }
-    return pNode->pNext;
+    return NULL;
 }

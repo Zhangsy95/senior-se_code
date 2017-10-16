@@ -5,25 +5,26 @@
 #include <pthread.h>
 
 #define SUCESS 0
-#define FAILURE (-1)
+#define FAILURE -1
 
-typedef struct LinkTableNode
+typedef struct LinkNode
 {
-    struct LinkTableNode * pNext;
-}tLinkTableNode;
+    struct LinkNode * pNext;
+}tLinkNode;
 
 typedef struct LinkTable
 {
-    tLinkTableNode *pHead;
-    tLinkTableNode *pTail;
+    tLinkNode *pHead;
+    tLinkNode *pTail;
     int SumOfNode;
 }tLinkTable;
 
 tLinkTable * CreateLinkTable();
 int DeleteLinkTable(tLinkTable *pLinkTable);
-int AddLinkTableNode(tLinkTable *pLinkTable, tLinkTableNode *pNode);
-int DeleteLinkTableNode(tLinkTable *pLinkTable, tLinkTableNode *pNode);
-tLinkTableNode * GetLinkTableHead(tLinkTable * pLinkTable);
-tLinkTableNode * GetNextLinkTableNode(tLinkTable * pLinkTable, tLinkTableNode * pNode);
+int AddLinkNode(tLinkTable *pLinkTable, tLinkNode *pNode);
+int DelLinkNode(tLinkTable *pLinkTable, tLinkNode *pNode);
+tLinkNode * GetLinkTableHead(tLinkTable * pLinkTable);
+tLinkNode * GetLinkTableTail(tLinkTable * pLinkTable);
+tLinkNode * GetNextLinkNode(tLinkTable * pLinkTable, tLinkNode * pNode);
 
 #endif
