@@ -7,8 +7,8 @@
 #define DESC_LEN 1024
 #define CMD_NUM 10
 
-int Help();
-int Quit();
+int help();
+int quit();
 
 typedef struct DataNode
 {
@@ -23,18 +23,18 @@ int InitMenuData(tLinkTable **ppLinkTable)
     *ppLinkTable = CreateLinkTable();
     tDataNode *pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "help";
-    pNode->desc = "menu list:";
-    pNode->handler = Help;
+    pNode->desc = "all menu functions:";
+    pNode->handler = help;
     AddLinkTableNode(*ppLinkTable,(tLinkTableNode*)pNode);
     pNode=(tDataNode*)(tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "version";
-    pNode->desc = "menu program v2.5";
+    pNode->desc = "menu program v3.0";
     pNode->handler = NULL;
     AddLinkTableNode(*ppLinkTable,(tLinkTableNode*)pNode);
     pNode = (tDataNode*)malloc(sizeof(tDataNode));
     pNode->cmd = "quit";
-    pNode->desc = "quit from menu program v 2.5";
-    pNode->handler = Quit;
+    pNode->desc = "quit from menu";
+    pNode->handler = quit;
     AddLinkTableNode(*ppLinkTable,(tLinkTableNode*)pNode);
     return 0;
 }
@@ -43,11 +43,11 @@ tLinkTable *head = NULL;
 
 int ShowAllCmd(tLinkTable *head)
 {
-    printf("menu list:\n");
+    printf("This is menu:\n");
     tDataNode *p = (tDataNode*)GetLinkTableHead(head);
     while(p != NULL)
     {
-	printf("%s-\n%s\n",p->cmd,p->desc);
+	printf("%s--%s\n",p->cmd,p->desc);
 	p = (tDataNode*)GetNextLinkTableNode(head,(tLinkTableNode*)p);
     }
     return 0;
@@ -73,12 +73,12 @@ int main()
     while(1)
     {
 	char cmd[CMD_MAX_LEN];
-	printf("Input a cmd number:");
+	printf("Please input a cmd :");
 	scanf("%s",cmd);
 	tDataNode *p = FindCmd(head,cmd);
 	if (p == NULL)
 	{
-	    printf("this is a wrong cmd!\n");
+	    printf("Wrong cmd!\n");
 	    continue;
 	}
 
@@ -89,13 +89,13 @@ int main()
     }
 }
 
-int Help()
+int help()
 {
     ShowAllCmd(head);
     return 0;
 }
 
-int Quit()
+int quit()
 {
     exit(0);
 }

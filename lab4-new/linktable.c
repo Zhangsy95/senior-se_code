@@ -58,12 +58,12 @@ tLinkTableNode * GetNextLinkTableNode(tLinkTable *pLinkTable, tLinkTableNode *pN
 {
     if (pLinkTable == NULL)
     {
-        printf("Erroe,The table is empty!\n");
+        printf("Error,The table is empty!\n");
         exit(0);
     }
     else if (pNode == NULL)
     {
-        printf("Erroe,The node is empty!\n");
+        printf("Error,The node is empty!\n");
         exit(0);
     }
     return pNode->pNext;
